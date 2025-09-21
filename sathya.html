@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sathya - Portfolio</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #090a0f; 
+    color: #fff;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+
+  /* Stars Overlay */
+  #stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    opacity: 0.8;
+    animation: twinkle 3s infinite ease-in-out, drift 10s infinite linear;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes drift {
+    0%   { transform: translate(0, 0); }
+    50%  { transform: translate(10px, -10px); }
+    100% { transform: translate(0, 0); }
+  }
+
+  /* Navbar */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  header h2 {
+    font-size: 1.8rem;
+    color: #a803ab;    
+  }
+
+  nav a {
+    color: #fff;
+    margin-left: 20px;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+
+  nav a:hover {
+    color: #a803ab;
+  }
+
+  section {
+    padding: 100px 20px;
+    min-height: 100vh;
+  }
+
+  /* Home */
+  .home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .neon-name {
+    font-size: 7rem;
+    font-weight: bold;
+    background: linear-gradient(90deg, #ff00cc, #3333ff, #00ffcc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: auraGlow 3s ease-in-out infinite;
+    text-shadow:
+      0 0 20px rgba(155, 61, 252, 0.7),
+      0 0 40px rgba(91, 134, 248, 0.6),
+      0 0 80px rgba(0, 255, 204, 0.5);
+  }
+
+  @keyframes auraGlow {
+    0% {
+      text-shadow:
+        0 0 10px rgba(155, 61, 252, 0.6),
+        0 0 20px rgba(91, 134, 248, 0.5),
+        0 0 40px rgba(0, 255, 204, 0.4);
+    }
+    50% {
+      text-shadow:
+        0 0 25px rgba(155, 61, 252, 1),
+        0 0 50px rgba(91, 134, 248, 0.9),
+        0 0 100px rgba(0, 255, 204, 0.8);
+    }
+    100% {
+      text-shadow:
+        0 0 10px rgba(155, 61, 252, 0.6),
+        0 0 20px rgba(91, 134, 248, 0.5),
+        0 0 40px rgba(0, 255, 204, 0.4);
+    }
+  }
+
+  .tagline {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    opacity: 0.8;
+  }
+
+  .view-btn {
+    margin-top: 2rem;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(145deg,  #a803ab, #000000, #a803ab);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 0 15px rgba(255,0,204,0.6);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: inline-block;
+  }
+
+  .view-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px #a803ab;
+  }
+
+  /* About Section */
+  .about-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 100px;
+    max-width: 1100px;
+    margin: auto;
+  }
+
+  .profile-pic img {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 4px solid #000000dd;
+    box-shadow: 0 0 25px #8b0ca8, 0 0 50px #bf08e3;
+    object-fit: cover;
+  }
+
+  .about-text {
+    flex: 7;
+    min-width: 300px;
+    max-width: 650px;
+  }
+
+  .about-text h2,
+  .about-text h3 {
+    color: #8b0ca8;
+    font-size: 25px;
+  }
+
+  .skill-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 30px;
+  }
+
+  .skill-card {
+    flex: 1;
+    min-width: 120px; 
+    padding: 15px; 
+    text-align: center;
+    border-radius: 16px;
+    background: linear-gradient(145deg, #a803ab, #000000, #a803ab);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    font-size: 14px;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .skill-card:hover {
+    transform: scale(1.05);
+  }
+
+  /* Floating */
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+  }
+
+  /* Projects / Certificates Cards */
+  .projects {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  .project-card {
+    width: 250px;
+    background: #0a0a0a;
+    color: #fff;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    transition: 0.3s ease;
+  }
+
+  .project-card img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  /* Neon Glow Effect */
+  .glow-card {
+    border: 2px solid #ff00cc;
+    box-shadow: 0 0 20px #ff00cc, 0 0 40px #00e1ff, 0 0 60px #a803ab;
+    animation: neonGlow 3s infinite alternate;
+  }
+
+  @keyframes neonGlow {
+    0% { box-shadow: 0 0 10px #ff00cc, 0 0 20px #00e1ff, 0 0 30px #a803ab; }
+    100% { box-shadow: 0 0 30px #ff00cc, 0 0 60px #00e1ff, 0 0 90px #a803ab; }
+  }
+
+  .project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 15px #7d2aff;
+  }
+
+  /* Skills Circles */
+  .skills-circles {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 2rem;
+    overflow-x: auto;
+    padding-bottom: 20px;
+  }
+
+  .skills-circles::-webkit-scrollbar { height: 8px; }
+  .skills-circles::-webkit-scrollbar-thumb { background: #ff00cc; border-radius: 4px; }
+  .skills-circles::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 4px; }
+
+  .skill-circle {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    text-align: center;
+    flex: 0 0 auto;
+  }
+
+  .skill-circle svg { transform: rotate(-90deg); width: 120px; height: 120px; }
+  .skill-circle circle { fill: none; stroke-width: 12; stroke-linecap: round; }
+  .skill-circle .bg { stroke: rgba(255,255,255,0.1); }
+  .skill-circle .progress { stroke: url(#gradient); stroke-dasharray: 339; stroke-dashoffset: 339; transition: stroke-dashoffset 2s ease; }
+
+  .skill-info {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff;
+  }
+  .skill-name { display: block; font-weight: bold; margin-bottom: 5px; }
+  .skill-percent { font-size: 1.2rem; font-weight: bold; }
+
+  /* Contact Section */
+  #contact h2 { text-align: center; font-size: 3rem; margin-bottom: 50px; color: #a803ab; }
+  .contact-wrapper { display: flex; flex-wrap: wrap; max-width: 1200px; margin: auto; gap: 50px; justify-content: center; }
+  .contact-info, .contact-form { flex: 1; min-width: 280px; padding: 30px; border-radius: 20px; }
+  .contact-info { background: rgba(255,255,255,0.05); box-shadow: 0 0 20px #a803ab; }
+  .contact-info h3 { margin-bottom: 20px; color: #a803ab; }
+  .contact-info p { margin: 15px 0; font-size: 1.1rem; }
+  .contact-info a { color: #00ffcc; text-decoration: none; }
+  .contact-info .social-icons a { margin-right: 15px; }
+  .contact-info .social-icons img { width: 25px; vertical-align: middle; transition: 0.3s; }
+  .contact-info .social-icons img:hover { transform: scale(1.2); }
+  .contact-form { background: rgba(255,255,255,0.05); box-shadow: 0 0 20px #a803ab; }
+  .contact-form form { display: flex; flex-direction: column; gap: 20px; }
+  .contact-form input, .contact-form textarea {
+    padding: 12px 15px; border: none; border-radius: 10px;
+    background: rgba(255,255,255,0.1); color: #fff; font-size: 1rem;
+  }
+  .contact-form input:focus, .contact-form textarea:focus { outline: none; box-shadow: 0 0 10px #ff80ff; }
+  .contact-form button {
+    padding: 15px 0; border: none; border-radius: 30px;
+    background: linear-gradient(145deg, #a803ab, #000000, #a803ab);
+    color: #fff; font-size: 1.2rem; font-weight: bold; cursor: pointer;
+    transition: 0.3s; box-shadow: 0 0 15px #ff00cc;
+  }
+  .contact-form button:hover { transform: scale(1.05); box-shadow: 0 0 25px #ba08bdd2; }
+
+  /* Footer */
+  footer { text-align: center; padding: 20px; background: rgba(0,0,0,0.7); margin-top: 50px; }
+
+  @media(max-width:768px){
+    .contact-wrapper { flex-direction: column; gap: 30px; }
+    .about-container { flex-direction: column; gap: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Stars -->
+<div id="stars"></div>
+
+<!-- Navbar -->
+<header>
+  <h2>SATHYA</h2>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#certificate">Certificate</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- Home -->
+<section class="home" id="home">
+  <h1 class="neon-name">SATHYA</h1>
+  <p class="tagline">Building the future with Swift & Creativity 🚀</p>
+  <a href="#projects" class="view-btn">View Projects</a>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="about-container">
+    <div class="profile-pic">
+      <img src="sathya.jpg" alt="Sathya">
+    </div>
+    <div class="about-text">
+      <h2>About Me</h2>
+      <h3>Hello, I'm SATHYA!</h3>
+      <p>
+        I’m passionate about building iOS & macOS apps using <strong>Swift & SwiftUI</strong>.  
+        With expertise in database integration, animations, and clean UI/UX,  
+        I love solving complex challenges and delivering apps that feel smooth and delightful.
+      </p>
+      <div class="skill-icons">
+        <div class="skill-card">⚡ Swift / SwiftUI</div>
+        <div class="skill-card">🗄️ SQLite</div>
+        <div class="skill-card">💻 JavaScript</div>
+        <div class="skill-card">🖥️ C++</div>
+        <div class="skill-card">🎨 UI / UX</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects">
+  <h2 style="text-align:center;">Projects</h2>
+  <div class="projects">
+    
+    <!-- Harassment Complaint Card -->
+    <div class="project-card glow-card">
+      <img src="images.png" alt="Harassment Complaint">
+      <h3>Harassment Complaint</h3>
+      <p>This shows a basic complaint form with SwiftUI where users can type their complaint and submit it.</p>
+    </div>
+
+    <!-- Product Management -->
+    <div class="project-card glow-card">
+      <img src="product.png" alt="Product Management">
+      <h3>Product Management</h3>
+      <p>A SwiftUI-based product management module that lets users add, edit, and delete product details with a clean UI. It connects to a local database for smooth data handling.</p>
+    </div>
+
+    <!-- Memory Card Game -->
+    <div class="project-card glow-card">
+      <img src="match card.png" alt="Memory Card Game">
+      <h3>Memory Card Game</h3>
+      <p>Fun SwiftUI-based memory game extended with 10 levels of challenges.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <h2 style="text-align:center;">Skills</h2>
+  <div class="skills-circles">
+    <div class="skill-circle" data-level="95">
+      <svg><circle class="bg" cx="60" cy="60" r="54"/><circle class="progress" cx="60" cy="60" r="54"/></svg>
+      <div class="skill-info"><span class="skill-name">Swift/SwiftUI</span><span class="skill-percent">0%</span></div>
+    </div>
+    <div class="skill-circle" data-level="90">
+      <svg><circle class="bg" cx="60" cy="60" r="54"/><circle class="progress" cx="60" cy="60" r="54"/></svg>
+      <div class="skill-info"><span class="skill-name">SQL & Database</span><span class="skill-percent">0%</span></div>
+    </div>
+    <div class="skill-circle" data-level="80">
+      <svg><circle class="bg" cx="60" cy="60" r="54"/><circle class="progress" cx="60" cy="60" r="54"/></svg>
+      <div class="skill-info"><span class="skill-name">C++</span><span class="skill-percent">0%</span></div>
+    </div>
+    <div class="skill-circle" data-level="90">
+      <svg><circle class="bg" cx="60" cy="60" r="54"/><circle class="progress" cx="60" cy="60" r="54"/></svg>
+      <div class="skill-info"><span class="skill-name">UI/UX</span><span class="skill-percent">0%</span></div>
+    </div>
+    <div class="skill-circle" data-level="65">
+      <svg><circle class="bg" cx="60" cy="60" r="54"/><circle class="progress" cx="60" cy="60" r="54"/></svg>
+      <div class="skill-info"><span class="skill-name">JavaScript</span><span class="skill-percent">0%</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Certificates -->
+<section id="certificates">
+  <h2 style="text-align:center;">Certificates</h2>
+  <div class="projects">
+    <div class="project-card glow-card">
+      <img src="certificate1.png" alt="Certificate 1">
+      
+    </div>
+    
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <h2>Contact Me</h2>
+  <div class="contact-wrapper">
+    <div class="contact-info">
+      <h3>Get in Touch</h3>
+      <p>Email: <a href="mailto:sathyaprasath269@gmail.com">sathyaprasath269@gmail.com</a></p>
+      <p>Phone: <a href="tel:+919080195305">+91 9080195305</a></p>
+      <div class="social-icons">
+        <a href="#"><img src="linkedin.png" alt="LinkedIn"></a>
+        <a href="#"><img src="github.png" alt="GitHub"></a>
+        <a href="#"><img src="twitter.png" alt="Twitter"></a>
+      </div>
+    </div>
+    <div class="contact-form">
+      <form>
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea rows="5" placeholder="Your Message"></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>&copy; 2024 Sathya. All rights reserved.</p>
+</footer>
+
+<script>
+  // Stars Generator
+  function createStars() {
+    const starContainer = document.getElementById('stars');
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.width = star.style.height = Math.random() * 3 + 'px';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      starContainer.appendChild(star);
+    }
+  }
+  createStars();
+
+  // Skills Animation
+  const skillCircles = document.querySelectorAll('.skill-circle');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const circle = entry.target;
+        const level = circle.getAttribute('data-level');
+        const progress = circle.querySelector('.progress');
+        const percentText = circle.querySelector('.skill-percent');
+        const radius = progress.r.baseVal.value;
+        const circumference = 2 * Math.PI * radius;
+        let offset = circumference - (level / 100) * circumference;
+        progress.style.strokeDasharray = circumference;
+        progress.style.strokeDashoffset = circumference;
+
+        // Animate stroke offset
+        setTimeout(() => { progress.style.strokeDashoffset = offset; }, 200);
+
+        // Animate percentage text
+        let count = 0;
+        const interval = setInterval(() => {
+          if (count >= level) clearInterval(interval);
+          else { count++; percentText.textContent = count + "%"; }
+        }, 20);
+      }
+    });
+  }, { threshold: 0.6 });
+  skillCircles.forEach(circle => observer.observe(circle));
+</script>
+
+<svg width="0" height="0">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff00cc"/>
+      <stop offset="100%" stop-color="#00ffcc"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+</body>
+</html>
